@@ -1,0 +1,25 @@
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    border: 2px solid #fff;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star-image {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
