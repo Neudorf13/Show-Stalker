@@ -19,7 +19,7 @@ const SearchBar = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8080/api/search", { text })
+      .post("http://localhost:8080/api/shows/search", { text })
       .then((response) => {
         console.log(response.data);
 

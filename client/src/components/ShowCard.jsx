@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./ShowCard.css";
 import PropTypes from "prop-types";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { FaStar } from "react-icons/fa";
 //import StarIcon from '@mui/icons-material/Star';
 //import star from '../assets/star.png';
 //const starImage = "https://static.tvmaze.com/images/star.png";
@@ -13,7 +15,7 @@ const ShowCard = ({ id, name, rating, img }) => {
 
   const fetchFullDetails = () => {
 
-    return axios.post('http://localhost:8080/api/detailedSearch', {id})
+    return axios.post('http://localhost:8080/api/shows/detailedSearch', {id})
     .then(response => {
       console.log(response.data);
       return response.data;
@@ -35,12 +37,23 @@ const ShowCard = ({ id, name, rating, img }) => {
   
   };
 
+  const addShow = () => {
+    console.log("show added button pressed!");
+    console.log("show name: " + name + " id: " + id);
+  };
+
   return (
     <div>
       <div className="card">
         <img src={img ? img : defaultImage} alt={name} onClick={handleImageClick}/>
-        <p>{name}</p>
-        <p>{rating ? rating : defaultRating}</p>
+        <h2>{name}</h2>
+        <div className='ratingStar'>
+          <p>{rating ? rating : defaultRating}</p>
+          <FaStar />
+        </div>
+        
+        {/* <button>Add to my shows</button> */}
+        <IoIosAddCircleOutline className='addShowButton' size={40} onClick={addShow}/>
       </div>
     </div>
   );

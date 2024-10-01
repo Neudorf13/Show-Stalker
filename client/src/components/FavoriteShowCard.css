@@ -1,0 +1,22 @@
+.favoriteShowCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid white;
+    background-color: black;
+    /* width: 70%; */
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.favoriteShowCard img {
+    margin-left: 20px;
+}
+
+.favoriteShowCard h1 {
+    font-size: 64px;
+}
+
+.favoriteText {
+    text-align: center;
+}

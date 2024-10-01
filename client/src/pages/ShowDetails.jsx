@@ -19,6 +19,7 @@ const ShowDetails = () => {
         name={fullDetails.name}
         rating={fullDetails.rating}
         summary={fullDetails.summary}
+        genres={fullDetails.genres}
       />
     </div>
   );

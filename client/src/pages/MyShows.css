@@ -1,0 +1,11 @@
+.myShowsContainer {
+    display: flex;
+}
+
+.favoriteShowsContainer {
+    flex: 0 0 60%;
+}
+
+.upComingPanel {
+    flex: 0 0 40%;
+}

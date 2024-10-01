@@ -2,12 +2,13 @@ import ShowCard from "../components/ShowCard"
 import Header from "../components/Header";
 import { data } from "../data/TestData";
 import './Home.css'
+import './Pages.css';
 
 const Home = () => {
   return (
     <div className="container">
         <Header/>
-      <h1>home page</h1>
+      <h1 className="pageTitle">Popular</h1>
       <div className="cards">
         {data.map((show, index) => (
           <ShowCard

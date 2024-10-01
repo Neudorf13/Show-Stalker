@@ -8,6 +8,7 @@ import MyShows from './pages/MyShows';
 import About from './pages/About';
 import SearchResults from './pages/SearchResults';
 import ShowDetails from './pages/ShowDetails';
+import Register from './pages/Register';
 
 import './App.css'
 // import axios from "axios";
@@ -36,6 +37,7 @@ function App() {
           <Route path='/about' element={<About/>}></Route>
           <Route path='/searchResults' element={<SearchResults/>}></Route>
           <Route path='/showDetails/:showName' element={<ShowDetails/>}></Route>
+          <Route path='/register' element={<Register/>}></Route>
         </Routes>
       </BrowserRouter>
           
