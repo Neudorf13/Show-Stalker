@@ -1,10 +1,16 @@
+//import { useContext } from 'react';
 import ShowCard from "../components/ShowCard"
 import Header from "../components/Header";
 import { data } from "../data/TestData";
 import './Home.css'
 import './Pages.css';
 
+//import { AuthContext } from '../AuthContext';
+
 const Home = () => {
+
+  //const { userID, savedShows } = useContext(AuthContext);
+
   return (
     <div className="container">
         <Header/>

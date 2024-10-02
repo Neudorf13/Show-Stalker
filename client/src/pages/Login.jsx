@@ -21,7 +21,11 @@ const Login = () => {
     });
 
     const data = await response.json();
+    console.log("test");
     console.log(data); // Do something with the response
+
+    localStorage.setItem('userID', data.userID);
+    localStorage.setItem('savedShows', JSON.stringify(data.savedShows));
 
     if(data.success) {
         navigate('/home');
