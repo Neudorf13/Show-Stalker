@@ -17,8 +17,7 @@ const ShowCard = ({ id, name, rating, img }) => {
 
     return axios.post('http://localhost:8080/api/shows/detailedSearch', {id})
     .then(response => {
-      console.log(response.data);
-      return response.data;
+      return response.data.show;
     })
     .catch(error => {
       console.error('Error performing search operation', error.message);
