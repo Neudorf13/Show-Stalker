@@ -5,6 +5,7 @@ import '../components/ShowCard.css';
 import './Home.css';
 
 
+
 const SearchResults = () => {
     const location = useLocation();
 

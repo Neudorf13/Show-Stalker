@@ -83,50 +83,6 @@ const findOrCreateShow = (showID, showName, showRating, showImage) => {
   });
 };
 
-// const findOrCreateShow = async (showID, showName, showRating, showImage) => {
-//   try {
-//     // Check if the show already exists by showID
-//     const query = "SELECT * FROM shows WHERE showID = ?";
-//     db.get(query, [showID], (err, row) => {
-//       if (err) {
-//         console.error(err);
-//         return res
-//           .status(500)
-//           .json({ success: false, message: "Internal server error" });
-//       }
-      
-      
-//       //if show doesn't exist in shows table, insert it
-//       if(!row) {
-//         const insertQuery = `
-//         INSERT INTO shows (showID, showName, showRating, showImage) 
-//         VALUES (?, ?, ?, ?)`;
-
-//         db.run(insertQuery, [showID, showName, showRating, showImage], (err) => {
-//           if(err) {
-//             console.error(err);
-//           }
-//         })
-
-//       }
-//     })
-//     // let show = await db.query("SELECT * FROM shows WHERE showID = ?", [showID]);
-
-//     // if (show.length === 0) {
-//     //   // If the show doesn't exist, insert it
-//     //   await db.query(
-//     //     "INSERT INTO shows (showID, showName, showRating, showImage) VALUES (?, ?, ?, ?)",
-//     //     [showID, showName, showRating, showImage]
-//     //   );
-//     // }
-//   } catch (error) {
-//     console.error("Error", error);
-//     return res
-//       .status(500)
-//       .json({ success: false, message: "Failed to add show for user." });
-//     //throw new Error("Error finding or creating show: " + error.message);
-//   }
-// };
 
 const addUserShow = async (req, res) => {
   const { userID, showID, showName, showRating, showImage } = req.body;
@@ -169,8 +125,33 @@ const addUserShow = async (req, res) => {
   }
 };
 
+const deleteUserShow = async (req,res) => {
+  const {userID, showID} = req.body;
+
+  try {
+    console.log("Attempting to remove show...");
+    
+    const query = "DELETE FROM userShows WHERE userID = ? AND showID = ?";
+    db.run(query, [userID, showID], (err) => {
+      if (err) {
+        console.error("Error removing show from userShows:", err);
+        return res.status(500).json({ success: false, message: "Failed to delete show for user." });
+      }
+      return res
+        .status(200)
+        .json({ success: true, message: "Show successfully deleted from user's account." });
+    });
+  } catch (error) {
+    console.error("Error removing show for user:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to remove show for user." });
+  }
+};
+
 module.exports = {
   showSearch,
   detailedShowSearch,
   addUserShow,
+  deleteUserShow,
 };
