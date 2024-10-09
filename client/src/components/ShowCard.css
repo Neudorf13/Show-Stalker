@@ -1,4 +1,10 @@
 .card {
+
+    display: flex;
+    flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -9,12 +15,15 @@
 
     width: 250px;
     height: 500px;
+    padding: 10px;
     /* overflow: hidden; */
 }
 
 .card h3 {
   font-size: 24px;
   overflow-wrap: break-word;
+  margin: 10px 0;
+  max-height: 48px;
 }
 
 
@@ -25,17 +34,6 @@
     margin-top: 10px;
 }
 
-.rating {
-    display: flex;
-    align-items: center;
-  }
-  
-  .star-image {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-  }
-
   .ratingStar {
     display: flex;
     justify-content: center;
@@ -44,7 +42,15 @@
   }
 
   .addShowButton {
-    margin-top: auto;
+    /* margin-top: auto; */
     margin-bottom: 10px;
     cursor: pointer;
+  }
+
+  .card-content {
+    flex-grow: 1; /* This pushes the rating and button to the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
   }

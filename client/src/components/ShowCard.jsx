@@ -3,10 +3,9 @@ import axios from "axios";
 import "./ShowCard.css";
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa";
-import AddShowButton from './AddShowButton';
+import AddShowButton from "./AddShowButton";
 
 const ShowCard = ({ id, name, rating, img }) => {
-
   const navigate = useNavigate();
   const defaultImage =
     "https://static.tvmaze.com/images/no-img/no-img-portrait-text.png";
@@ -42,11 +41,19 @@ const ShowCard = ({ id, name, rating, img }) => {
           onClick={handleImageClick}
         />
         <h3>{name}</h3>
-        <div className="ratingStar">
-          <p>{rating ? rating : defaultRating}</p>
-          <FaStar />
+        <div className="card-content">
+          <div className="ratingStar">
+            <p>{rating ? rating : defaultRating}</p>
+            <FaStar />
+          </div>
+          <AddShowButton
+            id={id}
+            name={name}
+            rating={rating}
+            img={img}
+            className="addShowButton"
+          />
         </div>
-        <AddShowButton id={id} name={name} rating={rating} img={img} className="addShowButton"/>
       </div>
     </div>
   );
