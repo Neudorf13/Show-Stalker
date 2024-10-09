@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import './SearchBar.css';
+
+import { FcSearch } from "react-icons/fc";
 
 const SearchBar = () => {
   const [text, setText] = useState("");
@@ -35,15 +38,15 @@ const SearchBar = () => {
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="searchForm">
       <input
         type="text"
         className="searchInput"
         value={text}
         onChange={handleTextChange}
-        placeholder="search"
+        placeholder="Search"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className='searchButton'><FcSearch size={24} /></button>
     </form>
   );
 };

@@ -14,6 +14,17 @@
     margin: 10px;
 }
 
+.navOptions li a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set default color for links */
+    font-weight: bold; /* Optional: make text bold */
+    font-size: 1.2rem; /* Optional: adjust the font size */
+  }
+
+  .navOptions li a:hover {
+    color: #007bff; /* Change to a different color on hover (blue in this case) */
+  }
+
 .search {
     display: flex;
 }

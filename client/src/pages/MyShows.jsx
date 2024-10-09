@@ -25,7 +25,7 @@ const MyShows = () => {
         setShows([]);
       }
     }
-  }, [shows]);
+  }, []);
 
   return (
     <div className='container'>
