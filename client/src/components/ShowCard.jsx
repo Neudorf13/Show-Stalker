@@ -41,12 +41,12 @@ const ShowCard = ({ id, name, rating, img }) => {
           alt={name}
           onClick={handleImageClick}
         />
-        <h2>{name}</h2>
+        <h3>{name}</h3>
         <div className="ratingStar">
           <p>{rating ? rating : defaultRating}</p>
           <FaStar />
         </div>
-        <AddShowButton id={id} name={name} rating={rating} img={img}/>
+        <AddShowButton id={id} name={name} rating={rating} img={img} className="addShowButton"/>
       </div>
     </div>
   );
