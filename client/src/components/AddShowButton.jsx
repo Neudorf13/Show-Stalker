@@ -93,7 +93,7 @@ const AddShowButton = ({ id, name, rating, img }) => {
   return (
     <div>
       {isSaved ? (
-        <GoHeartFill className="addShowButton" size={40} onClick={deleteShow} />
+        <GoHeartFill className="addShowButton addShowButtonFilled" size={40} onClick={deleteShow} />
       ) : (
         <GoHeart className="addShowButton" size={40} onClick={addShow} />
       )}

@@ -47,6 +47,10 @@
     cursor: pointer;
   }
 
+  .addShowButtonFilled {
+    color: #c16b96;
+  }
+
   .card-content {
     flex-grow: 1; /* This pushes the rating and button to the bottom */
     display: flex;
