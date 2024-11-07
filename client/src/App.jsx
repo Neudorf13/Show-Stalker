@@ -9,6 +9,7 @@ import About from "./pages/About";
 import SearchResults from "./pages/SearchResults";
 import ShowDetails from "./pages/ShowDetails";
 import Register from "./pages/Register";
+import Calendar from "./pages/Calendar";
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/myShows" element={<MyShows />}></Route>
             <Route path="/about" element={<About />}></Route>
+            <Route path="/calendar" element={<Calendar />}></Route>
             <Route path="/searchResults" element={<SearchResults />}></Route>
             <Route
               path="/showDetails/:showName"

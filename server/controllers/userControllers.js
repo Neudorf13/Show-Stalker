@@ -19,6 +19,7 @@ const getUserShows = (userID) => {
   });
 };
 
+//   /login route
 const loginUser = (req, res) => {
   const { username, password } = req.body;
 
@@ -79,7 +80,7 @@ const loginUser = (req, res) => {
     }
   });
 };
-
+//   /register route
 const registerUser = (req, res) => {
   //const {username, password, email} = req.body.user;
   const { user } = req.body;
