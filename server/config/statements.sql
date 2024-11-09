@@ -24,3 +24,4 @@ INSERT into users (username, email, passwordHash)
 values ('testuser', 'testuser@example.com', '$2b$10$gH0xF065ydSSh6SOCwAVe.eZDNZ76/aaH6WY.DuwNvW32SYtJw5DS');
 
 -- ALTER TABLE users ADD COLUMN refreshToken TEXT;
+-- ALTER TABLE userShows ADD COLUMN subscribed BOOLEAN DEFAULT false;
