@@ -1,5 +1,6 @@
 const db = require("../db");
 const bcrypt = require("bcrypt");
+const {getUserRefreshToken} = require("../services/userService");
 
 const getUserShows = (userID) => {
   return new Promise((resolve, reject) => {
@@ -55,12 +56,20 @@ const loginUser = (req, res) => {
         const savedShows = await getUserShows(userID);
         console.log("User's saved shows: ", savedShows);
 
+        const refreshToken = await getUserRefreshToken(userID);
+        console.log(refreshToken);
+        let calendarSubscribed = false;
+        if(refreshToken) {
+          calendarSubscribed = true;
+        }
+
         // Return success response with userID and list of shows
         return res.json({
           success: true,
           message: "Login successful!",
           userID: userID,
-          savedShows: savedShows
+          savedShows: savedShows,
+          calendarSubscribed: calendarSubscribed
         });
       } catch (err) {
         console.error("Error fetching user's saved shows:", err);
