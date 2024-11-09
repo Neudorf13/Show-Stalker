@@ -1,6 +1,7 @@
 import "./Pages.css";
 import Header from "../components/Header";
 import axios from "axios";
+import CalendarSubscribeButton from "../components/CalendarSubscribeButton";
 
 const Calendar = () => {
   //TODO: fix uri+clientID
@@ -84,6 +85,8 @@ const Calendar = () => {
           Create Event
         </button>
       </form>
+
+      <CalendarSubscribeButton/>
     </div>
   );
 };

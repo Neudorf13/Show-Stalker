@@ -19,9 +19,9 @@ const DetailedShowCard = ({ id, img, name, rating, summary, genres }) => {
     console.log("adding show with id: " + id);
   };
 
-  const removeShow = () => {
-    console.log("removing show with id: " + id);
-  };
+  // const removeShow = () => {
+  //   console.log("removing show with id: " + id);
+  // };
 
   const subscribeToShow = () => {
     console.log("subscribing to show.");
