@@ -26,6 +26,7 @@ const Login = () => {
 
     localStorage.setItem('userID', data.userID);
     localStorage.setItem('savedShows', JSON.stringify(data.savedShows));
+    localStorage.setItem('calendarSubscribed', data.calendarSubscribed);
 
     if(data.success) {
         navigate('/home');
