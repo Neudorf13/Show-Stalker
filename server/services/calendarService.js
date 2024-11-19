@@ -56,12 +56,12 @@ const addCalendarEvent = async (req, eventData) => {
   }
 };
 
-const backendAddCalendarEvent = async (userID, eventData) => {
+const backendAddCalendarEvent = async (eventData, accessToken) => {
   try {
-    const refreshToken = await getUserRefreshToken(userID);
-    console.log("refresh token after retrieving from db: ", refreshToken);
+    //const refreshToken = await getUserRefreshToken(userID);
+    //console.log("refresh token after retrieving from db: ", refreshToken);
 
-    const accessToken = await refreshAccessToken(refreshToken);
+    //const accessToken = await refreshAccessToken(refreshToken);
 
     const response = await axios.post(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events",
@@ -75,7 +75,7 @@ const backendAddCalendarEvent = async (userID, eventData) => {
     );
     console.log("Event created successfully:", response.data);
     return { success: true, event: response.data };
-    
+
   } catch (error) {
     console.error("Something went wrong while creating calendar event.", error);
     return { success: false, error: error.message };

@@ -56,6 +56,9 @@ const fetchUpcomingEpisodes = async (showID) => {
 const createCalendarEvents = async (userID, episodes) => {
   let eventsCreated = 0;
 
+  const refreshToken = await getUserRefreshToken(userID);
+  const accessToken = await refreshAccessToken(refreshToken);
+
   for (const episode of episodes) {
     console.log("printing episode:");
     console.log(episode);
@@ -79,7 +82,7 @@ const createCalendarEvents = async (userID, episodes) => {
     };
 
     let result;
-    result = await backendAddCalendarEvent(userID, eventData);
+    result = await backendAddCalendarEvent(eventData, accessToken);
 
     if (result.success) {
       console.log("Event created");
