@@ -10,8 +10,24 @@ const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const handleGoogleAuthCallback = async (req, res) => {
   const authorizationCode = req.query.code;
 
+  const state = req.query.state;
+  console.log("state: " + state);
+  
+
   if (!authorizationCode) {
     return res.status(400).send("Authorization code not found");
+  }
+  else if(!state) {
+    return res.status(400).send("User ID was not passed correctly.");
+  }
+
+  let userID;
+  try {
+    const decodedState = JSON.parse(decodeURIComponent(state));
+    userID = decodedState.userID;
+  } catch (error) {
+    console.error("Error decoding state:", error);
+    return res.status(400).send("Invalid state parameter");
   }
 
   try {
@@ -21,7 +37,7 @@ const handleGoogleAuthCallback = async (req, res) => {
       {
         code: authorizationCode,
         client_id:
-        googleClientId, //TODO
+        googleClientId,
         client_secret: googleClientSecret,
         redirect_uri: "http://localhost:8080/api/calendar/oauth2/callback", // DEVELOPMENT
         grant_type: "authorization_code",
@@ -34,10 +50,6 @@ const handleGoogleAuthCallback = async (req, res) => {
     console.log("Access Token:", tokens.access_token);
     console.log("Refresh Token:", tokens.refresh_token);
 
-    //store refresh token in database TODO
-    const userID = 1;
-    //const userID = localStorage.getItem("userID");
-    //console.log("user ID: " + userID);
     setUserRefreshToken(userID, tokens.refresh_token);
 
     //store access token in some type of temp storage
