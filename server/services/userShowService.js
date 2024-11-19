@@ -1,7 +1,8 @@
 //userShowService.js
 const db = require("../db");
 const axios = require("axios");
-const { backendAddCalendarEvent } = require("./calendarService");
+const { backendAddCalendarEvent, refreshAccessToken } = require("./calendarService");
+const { getUserRefreshToken } = require("./userService");
 
 const subscribeUserToShow = (userID, showID) => {
   console.log("userID: " + userID + " showID: " + showID);

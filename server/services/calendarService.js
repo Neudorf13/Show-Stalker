@@ -113,4 +113,5 @@ const refreshAccessToken = async (refreshToken) => {
 module.exports = {
   addCalendarEvent,
   backendAddCalendarEvent,
+  refreshAccessToken,
 };

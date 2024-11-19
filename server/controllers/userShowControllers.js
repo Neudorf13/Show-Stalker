@@ -16,7 +16,9 @@ const subscribeToShow = async (req, res) => {
       console.log(episodes);
 
       if(episodes.length > 0) {
+        console.log("Before create calendar events");
         const eventsResult = await createCalendarEvents(userID, episodes);
+        console.log("After create calendar events");
 
         res.status(200).json({
           message: "User successfully subscribed to show and events created.",
