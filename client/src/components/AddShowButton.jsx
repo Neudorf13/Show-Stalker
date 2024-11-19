@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ShowCard.css";
 import PropTypes from "prop-types";
-import { AuthContext } from "../AuthContext";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 
 const AddShowButton = ({ id, name, rating, img }) => {
-  const { userID } = useContext(AuthContext);
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -18,6 +16,8 @@ const AddShowButton = ({ id, name, rating, img }) => {
   const addShow = () => {
     console.log("show added button pressed!");
     console.log("show name: " + name + " id: " + id);
+
+    const userID = localStorage.getItem("userID");
 
     const showData = {
       userID: userID,
@@ -58,6 +58,7 @@ const AddShowButton = ({ id, name, rating, img }) => {
 
   const deleteShow = () => {
     console.log("delete show button clicked!");
+    const userID = localStorage.getItem("userID");
 
     const showData = {
       userID: userID,
