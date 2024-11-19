@@ -1,3 +1,9 @@
+
+
+//THIS IS OUTDATED CODE AND SHOULD ONLY BE USED TO TAKE ICONS FROM THEN DELETE THE COMPONENT
+
+
+
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from 'axios';
@@ -9,8 +15,9 @@ const CalendarSubscribeButton = () => {
   const addSubscription = async () => {
     console.log("adding subscription to show");
 
+    const userID = localStorage.getItem("userID");
     //temp vars
-    const userID = 1;
+    //const userID = 1;
     const showID = 41428;
     //const showID = -5;
 
