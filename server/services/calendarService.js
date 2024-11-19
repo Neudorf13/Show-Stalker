@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { getUserRefreshToken } = require("./userService");
-require('dotenv').config();
+require("dotenv").config();
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -56,30 +56,61 @@ const addCalendarEvent = async (req, eventData) => {
   }
 };
 
-const refreshAccessToken = async (refreshToken) => {
-    console.log("refresh token inside refreshAccessToken function: ", refreshToken);
+const backendAddCalendarEvent = async (userID, eventData) => {
+  try {
+    const refreshToken = await getUserRefreshToken(userID);
+    console.log("refresh token after retrieving from db: ", refreshToken);
 
-    
+    const accessToken = await refreshAccessToken(refreshToken);
 
-    try {
-        const response = await axios.post("https://oauth2.googleapis.com/token", {
-          client_id: googleClientId,          
-          client_secret: googleClientSecret,
-          refresh_token: refreshToken,
-          grant_type: "refresh_token",
-        });
-    
-        // Google will return the new access token in the response
-        const newAccessToken = response.data.access_token;
-        console.log("New access token retrieved:", newAccessToken);
-    
-        return newAccessToken;
-      } catch (error) {
-        console.error("Error refreshing access token:", error.response?.data || error.message);
-        throw error;
+    const response = await axios.post(
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+      eventData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
       }
+    );
+    console.log("Event created successfully:", response.data);
+    return { success: true, event: response.data };
+    
+  } catch (error) {
+    console.error("Something went wrong while creating calendar event.", error);
+    return { success: false, error: error.message };
+  }
+};
+
+const refreshAccessToken = async (refreshToken) => {
+  console.log(
+    "refresh token inside refreshAccessToken function: ",
+    refreshToken
+  );
+
+  try {
+    const response = await axios.post("https://oauth2.googleapis.com/token", {
+      client_id: googleClientId,
+      client_secret: googleClientSecret,
+      refresh_token: refreshToken,
+      grant_type: "refresh_token",
+    });
+
+    // Google will return the new access token in the response
+    const newAccessToken = response.data.access_token;
+    console.log("New access token retrieved:", newAccessToken);
+
+    return newAccessToken;
+  } catch (error) {
+    console.error(
+      "Error refreshing access token:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
 };
 
 module.exports = {
   addCalendarEvent,
+  backendAddCalendarEvent,
 };
