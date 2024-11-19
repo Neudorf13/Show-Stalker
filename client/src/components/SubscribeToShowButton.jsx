@@ -5,6 +5,14 @@ import PropTypes from "prop-types";
 const SubscribeToShowButton = ({ id }) => {
   const [subscribed, setSubscribed] = useState(false);
 
+  const handleAction = () => {
+    if (subscribed) {
+      unsubscribeToShow();
+    } else {
+      subscribeToShow();
+    }
+  };
+
   const subscribeToShow = async () => {
     console.log("subscribing to show.");
 
@@ -17,6 +25,7 @@ const SubscribeToShowButton = ({ id }) => {
       const response = await axios.post(url, data);
       console.log(response);
       setSubscribed(true);
+
     } catch (error) {
       console.error("Something went wrong while subscribing to show.", error);
     }
@@ -27,13 +36,7 @@ const SubscribeToShowButton = ({ id }) => {
     setSubscribed(false);
   };
 
-  const handleAction = () => {
-    if (subscribed) {
-      unsubscribeToShow();
-    } else {
-      subscribeToShow();
-    }
-  };
+
 
   return (
     <div>
