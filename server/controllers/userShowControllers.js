@@ -1,4 +1,5 @@
-const { subscribeUserToShow } = require("../services/userShowService");
+//userShowControllers.js
+const { subscribeUserToShow, fetchUpcomingEpisodes, createCalendarEvents } = require("../services/userShowService");
 
 const subscribeToShow = async (req, res) => {
   try {
@@ -10,10 +11,28 @@ const subscribeToShow = async (req, res) => {
     const result = await subscribeUserToShow(userID, showID);
 
     if (result.changes > 0) {
-      res.status(200).json({
-        message: "User successfully subscribed to show.",
-        subscribed: true,
-      });
+
+      const episodes = await fetchUpcomingEpisodes(showID);
+      console.log(episodes);
+
+      if(episodes.length > 0) {
+        const eventsResult = await createCalendarEvents(userID, episodes);
+
+        res.status(200).json({
+          message: "User successfully subscribed to show and events created.",
+          subscribed: true,
+          eventsCreated: eventsResult,
+        });
+      }
+      else {
+        res.status(200).json({
+          message: "User successfully subscribed to show, but there are currently no upcoming episodes to add to calendar.",
+          subscribed: true,
+          eventsCreated: 0,
+        });
+      }
+
+      
     } else {
       res.status(404).json({
         message: "User or show not found. Subscription could not be updated.", 
