@@ -1,74 +1,99 @@
 //DetailedShowCard.jsx
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./DetailedShowCard.css";
 import PropTypes from "prop-types";
 
-const DetailedShowCard = ({ id, img, name, rating, summary, genres }) => {
+import AddShowButton from "./AddShowButton";
+import LinkCalendarButton from "./LinkCalendarButton";
+import SubscribeToShowButton from "./SubscribeToShowButton";
 
+const DetailedShowCard = ({ id, img, name, rating, summary, genres }) => {
   const [calendarLinked, setCalendarLinked] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
+  const [upComing, setUpComing] = useState([]); //list: upcoming episodes for show
 
   useEffect(() => {
-      const linked = localStorage.getItem('calendarSubscribed') === "true";
-      console.log("calendar linked: " + linked);
-      setCalendarLinked(linked);
+    const linked = localStorage.getItem("calendarSubscribed") === "true";
+    console.log("calendar linked: " + linked);
+    setCalendarLinked(linked);
   }, []);
 
-  //write function to add show to my shows
-  const addShow = () => {
-    console.log("adding show with id: " + id);
+  useEffect(() => {
+    const fetchEpisodes = async () => {
+      await findUpcomingEpisodes();
+    };
+
+    fetchEpisodes();
+    console.log("upcoming");
+    console.log(upComing);
+  }, []);
+
+  const findUpcomingEpisodes = async () => {
+    console.log("finding upcoming episodes...");
+
+    try {
+      const url = `https://api.tvmaze.com/shows/${id}/episodes`;
+      const response = await axios.get(url);
+
+      const episodes = response.data;
+      console.log(episodes);
+
+      const today = new Date();
+
+      const upcomingEpisodes = episodes.filter((episode) => {
+        const airdate = new Date(episode.airdate);
+        return airdate >= today;
+      });
+
+      console.log(upcomingEpisodes);
+      setUpComing(upcomingEpisodes);
+    } catch (error) {
+      console.error(
+        "Something went wrong while searching for upcoming episodes",
+        error
+      );
+    }
   };
-
-  // const removeShow = () => {
-  //   console.log("removing show with id: " + id);
-  // };
-
-  const subscribeToShow = () => {
-    console.log("subscribing to show.");
-    setSubscribed(true);
-  };
-
-  const unsubscribeToShow = () => {
-    console.log("unsubscribing to show.");
-    setSubscribed(false);
-  };
-
-  const linkCalendar = () => {
-    console.log("linking calendar...");
-  };
-
-  let buttonLabel;
-  let buttonAction;
-
-  if (!calendarLinked) {
-    buttonLabel = "Link Google Calendar";
-    buttonAction = linkCalendar;
-  } else if (subscribed) {
-    buttonLabel = "Unsubscribe";
-    buttonAction = unsubscribeToShow;
-  } else {
-    buttonLabel = "Subscribe";
-    buttonAction = subscribeToShow;
-  }
 
   return (
-    <div className="detailedShowCardContainer">
-      <div className="showImage">
-        <img src={img} alt="" />
-      </div>
-
-      <div className="showInformation">
-        <div className="d_name_rating">
-          <h1 className="d_name">{name}</h1>
-          <div className="d_rating">
-            <h1>{rating}</h1>
-          </div>
-          <button onClick={addShow}>Add to my shows</button>
-          <button onClick={buttonAction}>{buttonLabel}</button>
+    <div>
+      <div className="detailedShowCardContainer">
+        <div className="showImage">
+          <img src={img} alt="" />
         </div>
 
-        <p>Genres: {genres.join(", ")}</p>
-        <p dangerouslySetInnerHTML={{ __html: summary }}></p>
+        <div className="showInformation">
+          <div className="d_name_rating">
+            <h1 className="d_name">{name}</h1>
+            <div className="d_rating">
+              <h1>{rating}</h1>
+            </div>
+            <AddShowButton id={id} name={name} rating={rating} img={img} />
+            {!calendarLinked ? (
+              <LinkCalendarButton />
+            ) : (
+              <SubscribeToShowButton id={id} />
+            )}
+          </div>
+
+          <p>Genres: {genres.join(", ")}</p>
+          <p dangerouslySetInnerHTML={{ __html: summary }}></p>
+
+          <h2>Upcoming Episodes</h2>
+          <ul>
+            {upComing.map((episode) => (
+              <li key={episode.id}>
+                <h3>{episode.name}</h3>
+                <p>
+                  Season: {episode.season}, Episode: {episode.number}
+                </p>
+                <p>
+                  Airs on: {episode.airdate} at {episode.airtime}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
