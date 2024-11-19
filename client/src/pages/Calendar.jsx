@@ -2,18 +2,35 @@ import "./Pages.css";
 import Header from "../components/Header";
 import axios from "axios";
 import CalendarSubscribeButton from "../components/CalendarSubscribeButton";
+import LinkCalendarButton from "../components/LinkCalendarButton";
 
 const Calendar = () => {
-  //TODO: fix uri+clientID
-  const redirect_uri = "http://localhost:8080/api/calendar/oauth2/callback"; //DEVELOPMENT
-  const clientID =
-    "953851801147-s168o6tbd5813rn707m44pqmncf51c20.apps.googleusercontent.com"; //TODO
-  const scope = "https://www.googleapis.com/auth/calendar";
-  const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientID}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&access_type=offline&prompt=consent`;
 
-  const handleLinkClick = () => {
-    // Redirect to the Google OAuth URL
-    window.location.href = googleAuthUrl;
+  //take users shows and search for upcoming episodes
+  const findUpcomingEpisodes = async (showID) => {
+    console.log("finding upcoming episodes...");
+
+    try {
+      const url = `https://api.tvmaze.com/shows/${showID}/episodes`;
+      const response = await axios.get(url);
+      console.log(response);
+      const episodes = response.data;
+      console.log(episodes);
+
+      const today = new Date();
+      console.log(today);
+
+      const upcomingEpisodes = episodes.filter(episode => {
+        const airdate = new Date(episode.airdate);
+        return airdate >= today;
+    });
+
+    console.log(upcomingEpisodes);
+
+
+    } catch (error) {
+      console.error("Something went wrong while searching for upcoming episodes", error);
+    }
   };
 
   const createEvent = async () => {
@@ -64,7 +81,7 @@ const Calendar = () => {
     <div>
       <Header />
       <h1 className="pageTitle">Link your Google Calendar</h1>
-      <button onClick={handleLinkClick}>Link Google Calendar</button>
+      <LinkCalendarButton/>
 
       <br />
 
@@ -87,6 +104,8 @@ const Calendar = () => {
       </form>
 
       <CalendarSubscribeButton/>
+
+      <button onClick={() => findUpcomingEpisodes(69603)}>Find episodes for show!</button>
     </div>
   );
 };
