@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 const SubscribeToShowButton = ({ id }) => {
   const [subscribed, setSubscribed] = useState(false);
+
+  //check if user is already subscribed
+  useEffect(() => {
+    const savedShows = localStorage.getItem("savedShows");
+    if (savedShows) {
+      const shows = JSON.parse(savedShows); // Parse the JSON string into an array
+      const isSubscribed = shows.some(
+        (show) => show.showID === id && show.subscribed === 1
+      );
+
+      if (isSubscribed) {
+        console.log(`Show with ID ${id} is subscribed.`);
+        setSubscribed(true);
+      } else {
+        console.log(`Show with ID ${id} is not subscribed.`);
+      }
+    }
+
+  }, []);
 
   const handleAction = () => {
     if (subscribed) {

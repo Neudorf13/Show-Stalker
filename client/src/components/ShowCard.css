@@ -10,10 +10,14 @@
   margin-right: 40px;
   margin-bottom: 20px;
   border: 2px solid #fff;
-  background-color: #000000;
+  /* background-color: #000000; */
+  /* background-color: #839D83; */
+  /* background-color: #C4B5A7; */
+  /* background-color: #C4B5A7; */
+  background-color: #cebcac;
 
-  width: 250px;
-  height: 500px;
+  width: 200px;
+  height: 400px;
   padding: 10px;
   /* overflow: hidden; */
 }
@@ -30,6 +34,7 @@
   height: auto;
   cursor: pointer;
   margin-top: 10px;
+  border-radius: 10%;
 }
 
 .ratingStar {

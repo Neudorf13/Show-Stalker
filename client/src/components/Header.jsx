@@ -1,6 +1,7 @@
 import './Header.css';
 import SearchBar from './SearchBar';
 import {Link} from "react-router-dom";
+import logo from '../assets/showStalkerLogoBlackClean.png';
 
 
 const Header = () => {
@@ -8,7 +9,8 @@ const Header = () => {
   return (
     <header className='header'>
 
-        <img src="/vite.svg" alt="" />
+        {/* <img src="/vite.svg" alt="" /> */}
+        <img src={logo} alt="" />
         
         <SearchBar></SearchBar>
 

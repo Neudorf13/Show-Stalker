@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./DetailedShowCard.css";
 import PropTypes from "prop-types";
+import { FaStar } from "react-icons/fa";
 
 import AddShowButton from "./AddShowButton";
 import LinkCalendarButton from "./LinkCalendarButton";
@@ -67,6 +68,7 @@ const DetailedShowCard = ({ id, img, name, rating, summary, genres }) => {
             <h1 className="d_name">{name}</h1>
             <div className="d_rating">
               <h1>{rating}</h1>
+              <FaStar />
             </div>
             <AddShowButton id={id} name={name} rating={rating} img={img} />
             {!calendarLinked ? (
