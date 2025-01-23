@@ -56,7 +56,7 @@ const fetchUpcomingEpisodes = async (showID) => {
 
 const createCalendarEvents = async (userID, episodes) => {
   let eventsCreated = 0;
-
+  console.log("In userShowService");
   const refreshToken = await getUserRefreshToken(userID);
   const accessToken = await refreshAccessToken(refreshToken);
 
@@ -110,8 +110,25 @@ const createCalendarEvents = async (userID, episodes) => {
   //return number of events created
 };
 
+const getSubscribedService = async (userID, showID) => {
+    const query = `SELECT subscribed FROM userShows WHERE userID = ? AND showID = ?`;
+
+    return new Promise((resolve,reject) => {
+        db.get(query, [userID,showID], (err,row) => {
+            if(err) {
+                reject(err);
+            }
+            else {
+                console.log(row);
+                resolve(row);
+            }
+        })
+    });
+}
+
 module.exports = {
   subscribeUserToShow,
   fetchUpcomingEpisodes,
   createCalendarEvents,
+  getSubscribedService,
 };
