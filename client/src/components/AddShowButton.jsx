@@ -3,6 +3,9 @@ import axios from "axios";
 import "./ShowCard.css";
 import PropTypes from "prop-types";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 const AddShowButton = ({ id, name, rating, img }) => {
   const [isSaved, setIsSaved] = useState(false);
@@ -28,7 +31,7 @@ const AddShowButton = ({ id, name, rating, img }) => {
     };
 
     return axios
-      .post("http://localhost:8080/api/shows/addUserShow", showData)
+    .post(`${baseURL}/api/shows/addUserShow`, showData)  
       .then((response) => {
         console.log(response.data.message);
 
@@ -66,7 +69,7 @@ const AddShowButton = ({ id, name, rating, img }) => {
     };
 
     return axios
-      .post("http://localhost:8080/api/shows/deleteUserShow", showData)
+      .post(`${baseURL}/api/shows/deleteUserShow`, showData)
       .then((response) => {
         console.log(response.data.message);
 

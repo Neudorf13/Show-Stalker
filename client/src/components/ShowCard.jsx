@@ -4,6 +4,9 @@ import "./ShowCard.css";
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa";
 import AddShowButton from "./AddShowButton";
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 const ShowCard = ({ id, name, rating, img }) => {
   const navigate = useNavigate();
@@ -13,7 +16,7 @@ const ShowCard = ({ id, name, rating, img }) => {
 
   const fetchFullDetails = () => {
     return axios
-      .post("http://localhost:8080/api/shows/detailedSearch", { id })
+      .post(`${baseURL}/api/shows/detailedSearch`, { id })
       .then((response) => {
         return response.data.show;
       })

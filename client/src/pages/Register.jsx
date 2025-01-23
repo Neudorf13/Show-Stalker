@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -22,7 +25,7 @@ const Register = () => {
     console.log(user);
 
     return axios
-      .post("http://localhost:8080/api/users/register", { user })
+      .post(`${baseURL}/api/users/register`, { user })
       .then((response) => {
         console.log(response.data);
 

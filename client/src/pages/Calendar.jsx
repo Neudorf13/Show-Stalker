@@ -3,6 +3,9 @@ import Header from "../components/Header";
 import axios from "axios";
 import CalendarSubscribeButton from "../components/CalendarSubscribeButton";
 import LinkCalendarButton from "../components/LinkCalendarButton";
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 const Calendar = () => {
 
@@ -63,7 +66,7 @@ const Calendar = () => {
 
       // Call backend route to create event
       const response = await axios.post(
-        "http://localhost:8080/api/calendar/createEvent",
+        `${baseURL}/api/calendar/createEvent`,
         eventData
       );
 

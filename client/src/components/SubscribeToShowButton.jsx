@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 const SubscribeToShowButton = ({ id }) => {
   const [subscribed, setSubscribed] = useState(false);
@@ -36,7 +39,7 @@ const SubscribeToShowButton = ({ id }) => {
     console.log("subscribing to show.");
 
     try {
-      const url = "http://localhost:8080/api/userShows/subscribeToShow";
+      const url = `${baseURL}/api/userShows/subscribeToShow`;
       const userID = localStorage.getItem("userID");
       const showID = id;
       const data = { userID, showID };

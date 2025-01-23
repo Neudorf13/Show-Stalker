@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './SearchBar.css';
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
 
 import { FcSearch } from "react-icons/fc";
 
@@ -22,7 +25,7 @@ const SearchBar = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8080/api/shows/search", { text })
+      .post(`${baseURL}/api/shows/search`, { text })
       .then((response) => {
         console.log(response.data);
 

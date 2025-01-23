@@ -1,6 +1,10 @@
+import { getBaseURL } from "../config/config";
+
+const baseURL = getBaseURL();
+
 const LinkCalendarButton = () => {
   const userID = localStorage.getItem("userID");
-  const redirect_uri = "http://localhost:8080/api/calendar/oauth2/callback"; //DEVELOPMENT
+  const redirect_uri = `${baseURL}/api/calendar/oauth2/callback`; //DEVELOPMENT
   const clientID =
     "953851801147-s168o6tbd5813rn707m44pqmncf51c20.apps.googleusercontent.com"; //TODO
   const scope = "https://www.googleapis.com/auth/calendar";
