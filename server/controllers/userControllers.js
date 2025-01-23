@@ -5,7 +5,7 @@ const {getUserRefreshToken} = require("../services/userService");
 const getUserShows = (userID) => {
   return new Promise((resolve, reject) => {
     const query = `
-      SELECT s.showID, s.showName, s.showRating, s.showImage 
+      SELECT s.showID, s.showName, s.showRating, s.showImage, us.subscribed
       FROM shows s
       INNER JOIN userShows us ON s.showID = us.showID
       WHERE us.userID = ?
