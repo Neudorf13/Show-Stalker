@@ -29,6 +29,7 @@ const addCalendarEvent = async (req, eventData) => {
       const refreshToken = await getUserRefreshToken(1);
 
       console.log("refresh token after retrieving from db: ", refreshToken);
+      console.log("In calendarService");
 
       accessToken = await refreshAccessToken(refreshToken);
 
@@ -88,6 +89,10 @@ const refreshAccessToken = async (refreshToken) => {
     refreshToken
   );
 
+  // console.log(googleClientId);
+  // console.log(googleClientSecret);
+
+
   try {
     const response = await axios.post("https://oauth2.googleapis.com/token", {
       client_id: googleClientId,
@@ -95,7 +100,7 @@ const refreshAccessToken = async (refreshToken) => {
       refresh_token: refreshToken,
       grant_type: "refresh_token",
     });
-
+    
     // Google will return the new access token in the response
     const newAccessToken = response.data.access_token;
     console.log("New access token retrieved:", newAccessToken);
